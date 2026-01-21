@@ -19,7 +19,7 @@ typedef struct {
 MenuItem menu_items[MAX_ITEMS];
 int item_count = 0;
 
-// Удаление пробелов и переносов строк в начале и конце
+/* Remove leading and trailing whitespace/newlines */
 void trim(char *s) {
     char *p = s + strlen(s);
     while (p > s && isspace((unsigned char)p[-1])) *--p = '\0';
@@ -28,11 +28,10 @@ void trim(char *s) {
     memmove(s, start, strlen(start) + 1);
 }
 
+/* Parse config file or create a default one if missing */
 void load_config() {
-    // Пытаемся открыть menu.conf в текущей директории
     FILE *f = fopen("menu.conf", "r");
     if (!f) {
-        printf("Создаю дефолтный menu.conf...\n");
         f = fopen("menu.conf", "w");
         fprintf(f, "LibreWolf;librewolf\nTerm;alacritty\nEditor;alacritty -e nvim\nUpdate;xterm -e \"sudo pacman -Syu\"\n");
         fclose(f);
@@ -60,6 +59,7 @@ void load_config() {
     fclose(f);
 }
 
+/* Launch command in a detached process */
 void execute_cmd(const char *cmd) {
     if (fork() == 0) {
         setsid();
@@ -68,20 +68,21 @@ void execute_cmd(const char *cmd) {
     }
 }
 
+/* Render the menu items and highlight the selection */
 void draw_menu(Display *dpy, Window win, GC gc, int selected, int screen) {
     XClearWindow(dpy, win);
     for (int i = 0; i < item_count; i++) {
         if (i == selected) {
-            XSetForeground(dpy, gc, 0x333333); // Цвет выделения (темно-серый)
+            XSetForeground(dpy, gc, 0x333333); // Highlight background
             XFillRectangle(dpy, win, gc, 0, i * ITEM_HEIGHT, WINDOW_WIDTH, ITEM_HEIGHT);
             XSetForeground(dpy, gc, WhitePixel(dpy, screen));
         } else {
             XSetForeground(dpy, gc, BlackPixel(dpy, screen));
         }
-        // Рисуем текст (смещение 10px слева, 20px сверху внутри пункта)
+        
         XDrawString(dpy, win, gc, 15, i * ITEM_HEIGHT + 20, menu_items[i].name, strlen(menu_items[i].name));
         
-        XSetForeground(dpy, gc, 0xEEEEEE); // Тонкая линия разделителя
+        XSetForeground(dpy, gc, 0xEEEEEE); // Separator line
         XDrawLine(dpy, win, gc, 0, (i + 1) * ITEM_HEIGHT, WINDOW_WIDTH, (i + 1) * ITEM_HEIGHT);
     }
 }
@@ -89,7 +90,7 @@ void draw_menu(Display *dpy, Window win, GC gc, int selected, int screen) {
 int main() {
     load_config();
     if (item_count == 0) {
-        fprintf(stderr, "Ошибка: Конфиг пуст или не найден\n");
+        fprintf(stderr, "Error: Config is empty or not found\n");
         return 1;
     }
 
@@ -99,14 +100,14 @@ int main() {
     int screen = DefaultScreen(dpy);
     int win_height = item_count * ITEM_HEIGHT;
 
-    // Получаем позицию мыши
+    /* Get current mouse coordinates to spawn menu at cursor */
     Window root_ret, child_ret;
     int root_x, root_y, win_x, win_y;
     unsigned int mask;
     XQueryPointer(dpy, RootWindow(dpy, screen), &root_ret, &child_ret, &root_x, &root_y, &win_x, &win_y, &mask);
 
     XSetWindowAttributes attrs;
-    attrs.override_redirect = True; // Важно для Tiling WM!
+    attrs.override_redirect = True; // Prevent WM from managing the menu window
     attrs.background_pixel = WhitePixel(dpy, screen);
     attrs.event_mask = ExposureMask | ButtonPressMask | PointerMotionMask;
 
@@ -117,12 +118,11 @@ int main() {
 
     XMapWindow(dpy, win);
 
-    // Захватываем мышь, чтобы закрыть меню при клике в любом месте экрана
+    /* Grab pointer to handle clicks outside the menu */
     XGrabPointer(dpy, RootWindow(dpy, screen), True, ButtonPressMask, 
                  GrabModeAsync, GrabModeAsync, None, None, CurrentTime);
 
     GC gc = XCreateGC(dpy, win, 0, NULL);
-    // Пытаемся загрузить шрифт
     XFontStruct *font = XLoadQueryFont(dpy, "9x15");
     if (!font) font = XLoadQueryFont(dpy, "fixed");
     if (font) XSetFont(dpy, gc, font->fid);
@@ -139,7 +139,6 @@ int main() {
         }
 
         if (ev.type == MotionNotify) {
-            // Вычисляем положение мыши относительно окна меню
             int mx = ev.xmotion.x_root - root_x;
             int my = ev.xmotion.y_root - root_y;
             
@@ -165,7 +164,7 @@ int main() {
                     execute_cmd(menu_items[i].command);
                 }
             }
-            running = 0; // Закрыть при любом клике
+            running = 0; // Close on any click
         }
     }
 
