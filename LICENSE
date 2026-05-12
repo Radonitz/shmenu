@@ -1,36 +1,48 @@
-SHMENU PUBLIC LICENSE v1.0
+EDUCATIONAL & ETHICAL COPYLEFT LICENSE (EECL) v1.0
 Copyright (c) 2024 Radonitz
 
-1. PURPOSE
-This License is designed to promote the free exchange of knowledge and 
-the development of open-source tools for individuals and educational 
-communities, while preventing commercial exploitation of the Work.
+1. PREAMBLE
+This License is founded on the principle that knowledge and software are 
+common goods. It aims to empower students, educators, and independent 
+creators while ensuring that corporate interests do not enclose the 
+commons or profit from the uncompensated labor of the community.
 
-2. GRANT OF RIGHTS
-Subject to the terms and conditions of this License, the Author hereby 
-grants you a worldwide, royalty-free, non-exclusive license to:
-   a) Use, copy, and run the Work for personal, research, or 
-      educational purposes.
-   b) Modify, adapt, or build upon the Work.
-   c) Distribute the Work or Derivative Works under the same conditions.
+2. DEFINITIONS
+"Work" refers to the shmenu software and all associated files.
+"Derivative Work" refers to any software that includes, modifies, or 
+links to the Work.
+"Commercial Use" refers to any use by a for-profit entity or any use 
+intended for commercial advantage or monetary compensation.
 
-3. COPYLEFT CONDITION (SHARE-ALIKE)
-If you modify, transform, or build upon the Work, you MUST distribute your 
-contributions under the same "SHMENU PUBLIC LICENSE" or a compatible 
-Open Source license. You may NOT close the source code of derivative works.
+3. GRANT OF RIGHTS
+The Author hereby grants a worldwide, royalty-free, non-exclusive license 
+to individuals, self-organized learning groups, and non-profit educational 
+institutions to:
+    a) Use, study, and execute the Work for any non-commercial purpose.
+    b) Modify, extend, and adapt the Work to suit their educational needs.
+    c) Redistribute the Work or Derivative Works, provided they remain 
+       under this exact License.
 
-4. NON-COMMERCIAL RESTRICTION
-The rights granted in Section 2 are strictly limited to non-commercial use.
-   a) Use of the Work by commercial entities (for-profit corporations) is 
-      prohibited without a separate commercial agreement.
-   b) The Work may not be used as part of a paid service or product.
+4. THE "OPEN ECOSYSTEM" OBLIGATION (STRICT COPYLEFT)
+To ensure the Work contributes to the global pool of knowledge:
+    a) Any project that incorporates the Work MUST be made public.
+    b) The source code of any Derivative Work MUST be provided openly.
+    c) You may NOT apply any technical measures (DRM) or legal terms 
+       that restrict others from exercising the rights granted herein.
 
-5. EDUCATIONAL PREFERENCE
-Academic institutions, schools, and self-organized learning groups are 
-encouraged and explicitly permitted to use the Work for any non-profit 
-educational activity.
+5. NON-COMMERCIAL & ANTI-EXPLOITATION CLAUSE
+The Work is a gift to humanity, not a resource for capital extraction.
+    a) Direct or indirect commercial exploitation is prohibited.
+    b) Entities with a primary goal of profit-making must obtain 
+       explicit written permission and negotiate a separate agreement.
+    c) This restriction is waived for students using the Work for 
+       personal portfolios or school-related employment applications.
 
-6. NO WARRANTY
-THE WORK IS PROVIDED "AS IS". THE AUTHOR DISCLAIMS ALL WARRANTIES, 
-EXPRESS OR IMPLIED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY 
-CLAIM OR DAMAGES.
+6. EDUCATIONAL PRECEDENCE
+This License explicitly encourages the use of the Work in classrooms, 
+coding clubs, and academic research. The Author waives all notice 
+requirements for students: you are free to learn and build.
+
+7. DISCLAIMER OF WARRANTY
+THE WORK IS PROVIDED "AS IS". THE AUTHOR SHALL NOT BE HELD LIABLE FOR 
+ANY DAMAGES ARISING FROM THE USE OF THIS SOFTWARE.
